@@ -1,8 +1,8 @@
-import 'package:battery_info/model/android_battery_info.dart';
-import 'package:battery_saver/widgets/heading.dart';
-import 'package:flutter/material.dart';
 import 'package:battery_info/battery_info_plugin.dart';
+import 'package:battery_info/model/android_battery_info.dart';
+import 'package:flutter/material.dart';
 import 'widgets/battery.dart';
+import 'widgets/heading.dart';
 import 'widgets/loader.dart';
 
 void main() => runApp(const MyApp());
@@ -36,9 +36,32 @@ class MyApp extends StatelessWidget {
                 children: [
                   const Heading(),
                   const SizedBox(height: 64),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Battery(_color, _level)],
+                  Text(
+                    '${_level.toString()}%',
+                    style: const TextStyle(fontSize: 48),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Battery(_color, _level),
+                  const SizedBox(height: 32),
+                  Column(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Optimize',
+                              style: TextStyle(fontSize: 18))),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('CPU Cooler',
+                              style: TextStyle(fontSize: 18))),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Battery Info',
+                              style: TextStyle(fontSize: 18))),
+                      const SizedBox(height: 32),
+                    ],
                   )
                 ],
               );

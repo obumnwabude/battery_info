@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Heading extends StatelessWidget {
-  const Heading({Key? key}) : super(key: key);
+  final String _text;
+  const Heading(this._text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'BATTERY SAVER',
-      style: TextStyle(fontSize: 32),
+    return Text(
+      _text.toUpperCase(),
+      style: const TextStyle(fontSize: 32),
       textAlign: TextAlign.center,
     );
   }

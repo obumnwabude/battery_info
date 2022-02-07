@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'heading.dart';
 
 class Loader extends StatelessWidget {
-  const Loader({Key? key}) : super(key: key);
+  final String title;
+  const Loader({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 32),
       children: [
-        const Heading(),
+        Heading(title),
         const SizedBox(height: 96),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

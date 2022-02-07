@@ -1,16 +1,20 @@
+import 'package:battery_info/model/android_battery_info.dart';
+import 'package:battery_saver/widgets/heading.dart';
 import 'package:flutter/material.dart';
+import 'package:battery_info/battery_info_plugin.dart';
+import 'widgets/battery.dart';
+import 'widgets/loader.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  var _color = Colors.blue;
+  Color _getColor(int level) => level > 75
+      ? Colors.lightGreenAccent.shade400
+      : level > 20
+          ? Colors.yellowAccent
+          : Colors.redAccent.shade700;
 
   @override
   Widget build(BuildContext context) {
@@ -19,61 +23,26 @@ class _MyAppState extends State<MyApp> {
       title: 'Battery Saver',
       theme: ThemeData(brightness: Brightness.dark),
       home: Scaffold(
-        body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 32),
-          children: [
-            const Text(
-              'BATTERY SAVER',
-              style: TextStyle(fontSize: 32),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 64),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      width: 64,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: BorderSide(width: 1, color: _color),
-                          left: BorderSide(width: 1, color: _color),
-                          right: BorderSide(width: 1, color: _color),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 120,
-                      height: 228,
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: _color),
-                      ),
-                      child: Column(
-                        children: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-                            .map((n) => [
-                                  Container(
-                                    height: 16,
-                                    decoration: BoxDecoration(
-                                      color: _color,
-                                      border:
-                                          Border.all(width: 1, color: _color),
-                                    ),
-                                  ),
-                                  if (n != 1) const SizedBox(height: 6)
-                                ])
-                            .expand((w) => w)
-                            .toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
+        body: StreamBuilder<AndroidBatteryInfo?>(
+            stream: BatteryInfoPlugin().androidBatteryInfoStream,
+            builder: (context, snapshot) {
+              if (snapshot.data == null) return const Loader();
+
+              int _level = snapshot.data!.batteryLevel!;
+              Color _color = _getColor(_level);
+              return ListView(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 64, horizontal: 32),
+                children: [
+                  const Heading(),
+                  const SizedBox(height: 64),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Battery(_color, _level)],
+                  )
+                ],
+              );
+            }),
       ),
     );
   }

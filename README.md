@@ -1,6 +1,6 @@
-# Battery Saver
+# Battery Info
 
-A new Flutter project.
+One-Screen Android App, built with Flutter, that shows Infos about your Battery. 
 
 ## Getting Started
 

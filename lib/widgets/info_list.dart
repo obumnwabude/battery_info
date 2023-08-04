@@ -9,23 +9,22 @@ class Info {
 }
 
 class InfoList extends StatelessWidget {
-  final AndroidBatteryInfo batInfo;
-  const InfoList({Key? key, required this.batInfo}) : super(key: key);
+  final AndroidBatteryInfo info;
+  const InfoList({Key? key, required this.info}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Info> infos = [
-      Info('Level', batInfo.batteryLevel, '%'),
-      Info('Health', batInfo.health, ''),
-      Info('Capacity', batInfo.batteryCapacity, ''),
-      Info('Current Now', batInfo.currentNow, ''),
-      Info('Current Average', batInfo.currentAverage, ''),
-      Info('Voltage', batInfo.voltage, 'V'),
-      Info('Temperature', batInfo.temperature, '°C'),
-      Info('Technology', batInfo.technology, ''),
-      Info('Charging Status', batInfo.chargingStatus.toString().split('.')[1],
-          ''),
-      Info('Plugged Status', batInfo.pluggedStatus, ''),
+      Info('Level', info.batteryLevel, '%'),
+      Info('Health', info.health, ''),
+      Info('Capacity', info.batteryCapacity, ''),
+      Info('Current Now', info.currentNow, ''),
+      Info('Current Average', info.currentAverage, ''),
+      Info('Voltage', info.voltage, 'V'),
+      Info('Temperature', info.temperature, '°C'),
+      Info('Technology', info.technology, ''),
+      Info('Charging Status', '${info.chargingStatus}'.split('.')[1], ''),
+      Info('Plugged Status', info.pluggedStatus, ''),
     ];
 
     return Column(
@@ -36,12 +35,12 @@ class InfoList extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 i.label,
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               const SizedBox(height: 4),
               Text(
                 i.value.toString() + i.unit,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 16),
               if (i.label != 'Plugged Status')

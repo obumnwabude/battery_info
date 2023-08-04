@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:battery_info/battery_info_plugin.dart';
 import 'package:battery_info/model/android_battery_info.dart';
+import 'package:flutter/material.dart';
+
 import 'widgets/battery.dart';
 import 'widgets/info_list.dart';
 
@@ -45,7 +46,7 @@ class HomeScreen extends StatelessWidget {
         title: Text(
           'Battery Info',
           style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1!.color!,
+            color: Theme.of(context).textTheme.bodyLarge!.color!,
           ),
         ),
       ),
@@ -55,12 +56,12 @@ class HomeScreen extends StatelessWidget {
           return ListView(
             padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 32),
             children: snapshot.data == null
-                ? [
-                    const Text('Please Wait ...', textAlign: TextAlign.center),
-                    const SizedBox(height: 96),
+                ? const [
+                    Text('Please Wait ...', textAlign: TextAlign.center),
+                    SizedBox(height: 96),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 128,
                           height: 128,
@@ -82,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     const Text('Infos', style: TextStyle(fontSize: 24)),
-                    InfoList(batInfo: snapshot.data!),
+                    InfoList(info: snapshot.data!),
                   ],
           );
         },
